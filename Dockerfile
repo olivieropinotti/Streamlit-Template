@@ -47,3 +47,11 @@ CMD ["streamlit", "run", "streamlit_app.py"]
 # docker run -ti -p 8501:8501 --rm streamlit:latest
 # docker run -ti -p 8501:8501 -v ${pwd}:/app --rm streamlit:latest
 # docker run -ti -p 8501:8501 -v ${pwd}:/app --rm streamlit:latest /bin/bash
+# Install additional dependencies for file upload
+RUN apt-get install --yes libmagic-dev
+
+# Copy the Python script for uploading and processing CSV
+COPY upload_csv.py upload_csv.py
+
+# Run the Python script to upload and process CSV
+CMD ["streamlit", "run", "--server.enableCORS", "false", "upload_csv.py"]
